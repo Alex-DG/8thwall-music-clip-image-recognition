@@ -1,0 +1,23 @@
+{
+  "name": "8thwall-music-clip-image-recognition",
+  "description": "Trigger internal timer and shows lycris in AR.",
+  "version": "0.0.0",
+  "type": "module",
+  "author": "Alexandre Di Guida",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@types/three": "0.146.0",
+    "@vitejs/plugin-basic-ssl": "1.0.1",
+    "vite": "4.1.0",
+    "vite-plugin-glsl": "1.1.2"
+  },
+  "dependencies": {
+    "gsap": "^3.11.4",
+    "three": "0.146.0",
+    "troika-three-text": "^0.47.1"
+  }
+}
