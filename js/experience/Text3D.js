@@ -3,11 +3,13 @@ import { gsap } from 'gsap'
 
 class _Text3D {
   init() {
+    // Array of words to be displayed
     this.texts = [
       {
         value: 'success',
         text: 'Success!',
         color: 'orange',
+        time: null,
         tween: (text) => {
           return gsap.to(text.rotation, {
             y: `+=${10 * Math.PI}`,
@@ -20,6 +22,7 @@ class _Text3D {
         value: 'starting',
         text: 'STARTING',
         color: 'red',
+        time: null,
         tween: (text) => {
           return gsap.to(text.position, {
             x: `-=50`,
@@ -31,8 +34,27 @@ class _Text3D {
       {
         value: 'dreaming',
         text: 'DREAMING',
+        color: 'red',
+        time: {
+          minutes: 0,
+          seconds: 47,
+        },
+        tween: (text) => {
+          return gsap.to(text.position, {
+            y: `-=25`,
+            duration: 4,
+            ease: 'power3.out',
+          })
+        },
+      },
+      {
+        value: 'dreaming',
+        text: 'DREAMING',
         color: 'hotpink',
-        time: 36,
+        time: {
+          minutes: 0,
+          seconds: 36,
+        },
         tween: (text) => {
           return gsap.to(text.position, {
             y: `+=25`,
@@ -41,8 +63,137 @@ class _Text3D {
           })
         },
       },
+      {
+        value: 'dreaming',
+        text: 'DREAMING',
+        color: 'yellow',
+        time: {
+          minutes: 1,
+          seconds: 22,
+        },
+        tween: (text) => {
+          return gsap.to(text.position, {
+            y: `+=25`,
+            duration: 4,
+            ease: 'power3.out',
+          })
+        },
+      },
+      {
+        value: 'comeone',
+        text: 'COME ON',
+        color: 'lightblue',
+        time: {
+          minutes: 1,
+          seconds: 9,
+        },
+        tween: (text) => {
+          return gsap.to(text.rotation, {
+            y: `+=${10 * Math.PI}`,
+            duration: 4,
+            ease: 'power3.out',
+          })
+        },
+      },
+      {
+        value: 'comeone',
+        text: 'COME ON',
+        color: 'orange',
+        time: {
+          minutes: 1,
+          seconds: 54,
+        },
+        tween: (text) => {
+          return gsap.to(text.rotation, {
+            y: `+=${10 * Math.PI}`,
+            duration: 4,
+            ease: 'power3.out',
+          })
+        },
+      },
+      {
+        value: 'onlydreaming',
+        text: "I'm only dreaming",
+        color: 'hotpink',
+        time: {
+          minutes: 3,
+          seconds: 30,
+        },
+        tween: (text) => {
+          return gsap.to(text.position, {
+            y: `+=25`,
+            duration: 4,
+            ease: 'power3.out',
+          })
+        },
+      },
+      {
+        value: 'onlydreamingforyou',
+        text: "I'm only dreaming for you",
+        color: 'hotpink',
+        time: {
+          minutes: 4,
+          seconds: 16,
+        },
+        tween: (text) => {
+          return gsap.to(text.position, {
+            x: `+=25`,
+            duration: 8,
+            ease: 'power3.out',
+          })
+        },
+      },
+      {
+        value: 'comeone',
+        text: 'COME ON',
+        color: 'red',
+        time: {
+          minutes: 3,
+          seconds: 3,
+        },
+        tween: (text) => {
+          return gsap.to(text.rotation, {
+            y: `+=${10 * Math.PI}`,
+            duration: 4,
+            ease: 'power3.out',
+          })
+        },
+      },
+      {
+        value: 'you',
+        text: 'YOU',
+        color: 'hotpink',
+        time: {
+          minutes: 5,
+          seconds: 54,
+        },
+        tween: (text) => {
+          return gsap.to(text.position, {
+            y: `+=25`,
+            duration: 4,
+            ease: 'power3.out',
+          })
+        },
+      },
+      {
+        value: 'ending',
+        text: 'ENDING',
+        color: 'red',
+        time: {
+          minutes: 6,
+          seconds: 18,
+        },
+        tween: (text) => {
+          return gsap.to(text.position, {
+            y: `-=25`,
+            duration: 4,
+            ease: 'power3.out',
+          })
+        },
+      },
     ]
 
+    // Create 3D Text objects
     this.troikaTexts = this.texts.map(({ text, color }) => {
       const troikaText = new Text()
       troikaText.text = text
@@ -59,11 +210,27 @@ class _Text3D {
     this.tl = gsap.timeline()
   }
 
-  show(detail, value) {
-    const index = this.texts.findIndex((t) => t.value === value)
+  show(detail, value, time) {
+    let index
+
+    if (time) {
+      // BASED ON TIME CODE
+
+      index = this.texts.findIndex(
+        (t) =>
+          t.time &&
+          t.time.minutes === time.minutes &&
+          t.time.seconds === time.seconds
+      )
+    } else if (value) {
+      // BASED ON TEXT VALUE PROPERTY
+
+      index = this.texts.findIndex((t) => t.value === value)
+    }
+
     const text = this.troikaTexts[index]
 
-    if (!text?.userData?.enabled) {
+    if (text && !text.userData.enabled) {
       text.userData.enabled = true
 
       const textTween = this.texts[index].tween

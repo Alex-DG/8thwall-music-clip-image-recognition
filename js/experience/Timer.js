@@ -44,14 +44,11 @@ class _Timer {
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  updateTextDisplay(seconds) {
-    switch (seconds) {
-      case 36:
-        Text3D.show(this.detail, 'dreaming', seconds)
-        break
-      default:
-      // Nothing
-    }
+  updateTextDisplay(m, s) {
+    Text3D.show(this.detail, null, {
+      minutes: Number(m),
+      seconds: Number(s),
+    })
   }
 
   updateTimeDisplay(hours, minutes, seconds) {
@@ -76,7 +73,7 @@ class _Timer {
       this.stop()
     } else {
       // Update
-      this.updateTextDisplay(seconds)
+      this.updateTextDisplay(minutes, seconds)
       this.updateTimeDisplay(hours, minutes, seconds)
     }
   }
