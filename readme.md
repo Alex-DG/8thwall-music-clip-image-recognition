@@ -2,7 +2,7 @@
 
 ## Description
 
-- Use this [video](https://www.youtube.com/watch?v=BPNTC7uZYrI) to trigger the AR experience.
+- Use this [video](https://www.youtube.com/watch?v=1fCTi_gJlkw) to trigger the AR experience.
 - Face your phone towards the video player and then play the video.
 - You tap on the emoji clock to show or hide the timer displayed.
 

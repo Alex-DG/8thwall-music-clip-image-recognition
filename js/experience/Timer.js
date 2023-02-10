@@ -1,4 +1,7 @@
-import Lyrics from '../experience/Lycrics'
+import Text3D from './Text3D'
+
+const MAX_MIN = 6
+const MAX_SEC = 22
 
 class _Timer {
   constructor() {
@@ -39,6 +42,22 @@ class _Timer {
     this.enabled = !this.enabled
   }
 
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  updateTextDisplay(seconds) {
+    switch (seconds) {
+      case 36:
+        Text3D.show(this.detail, 'dreaming', seconds)
+        break
+      default:
+      // Nothing
+    }
+  }
+
+  updateTimeDisplay(hours, minutes, seconds) {
+    this.timerDisplay.innerHTML = hours + ':' + minutes + ':' + seconds
+  }
+
   updateTimer() {
     this.updatedTime = new Date().getTime()
     this.difference = this.updatedTime - this.startTime
@@ -53,11 +72,12 @@ class _Timer {
     minutes = minutes < 10 ? '0' + minutes : minutes
     seconds = seconds < 10 ? '0' + seconds : seconds
 
-    if (minutes >= 4 && seconds >= 10) {
+    if (minutes == MAX_MIN && seconds === MAX_SEC) {
       this.stop()
     } else {
-      Lyrics.show(seconds)
-      this.timerDisplay.innerHTML = hours + ':' + minutes + ':' + seconds
+      // Update
+      this.updateTextDisplay(seconds)
+      this.updateTimeDisplay(hours, minutes, seconds)
     }
   }
 
@@ -69,10 +89,11 @@ class _Timer {
 
     if (this.interval !== null) clearInterval(this.interval)
 
+    this.detail = detail
+    Text3D.show(detail, 'starting')
+
     console.log('⏱️', 'START TIMER', { detail })
-
     this.startTime = new Date().getTime()
-
     this.interval = setInterval(this.updateTimer, 1000)
   }
 
@@ -87,10 +108,6 @@ class _Timer {
     this.difference = 0
 
     this.timerDisplay.innerHTML = '00 : 00 : 00'
-  }
-
-  update() {
-    Lyrics?.update()
   }
 }
 

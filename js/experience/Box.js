@@ -1,21 +1,30 @@
 import * as THREE from 'three'
 
 class _Box {
-  init() {
+  setInstance() {
     const { scene } = XR8.Threejs.xrScene()
 
-    this.instance = new THREE.Mesh(
-      new THREE.BoxGeometry(1, 1, 1),
+    const box = new THREE.Mesh(
+      new THREE.BoxGeometry(),
       new THREE.MeshNormalMaterial()
     )
 
-    scene.add(this.instance)
+    box.position.copy(this.detail.position)
+    box.quaternion.copy(this.detail.rotation)
+    box.scale.set(this.detail.scale, this.detail.scale, this.detail.scale)
+
+    this.instance = box
+    scene.add(box)
+  }
+
+  init() {
+    this.setInstance()
   }
 
   update() {
     if (this.instance) {
       this.instance.rotation.x += 0.01
-      this.instance.rotation.y += 0.01
+      this.instance.rotation.z += 0.01
     }
   }
 }
